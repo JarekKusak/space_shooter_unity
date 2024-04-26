@@ -7,15 +7,31 @@ public class PlayerController : MonoBehaviour {
 
     private float fireRate = 0.1f;
     private float timeSinceLastShot = 0f;
+    
+    public float moveSpeed = 5f;
+    public Rigidbody2D rb;
 
+    private Vector2 moveDirection;
+    
     void Update() {
-        HandleMovement();
+        ProcessInputs();
         HandleRotation();
         HandleShooting();
     }
 
-    void HandleMovement() {
-        // Sem můžete přidat logiku pro pohyb, pokud je třeba.
+    void FixedUpdate() {
+        Move();
+    }
+
+    void ProcessInputs() {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+
+        moveDirection = new Vector2(moveX, moveY).normalized;
+    }
+
+    void Move() {
+        rb.velocity = moveDirection * moveSpeed;
     }
 
     void HandleRotation() {
