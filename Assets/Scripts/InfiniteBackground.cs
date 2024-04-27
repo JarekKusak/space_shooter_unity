@@ -36,7 +36,6 @@ public class InfiniteBackground : MonoBehaviour
 
     private void Update()
     {
-        
         Camera cam = Camera.main;
         float camVerticalExtend = cam.orthographicSize * 2f;
         float camHorizontalExtend = camVerticalExtend * cam.aspect;
@@ -53,27 +52,25 @@ public class InfiniteBackground : MonoBehaviour
 
     private void RepositionTile(GameObject tile, Vector2 camMin, Vector2 camMax)
     {
-        
         Vector2 tilePos = tile.transform.position;
-    
-        // Zkontrolujeme, jestli je dlaždice vlevo nebo vpravo od kamery
-        if (tilePos.x < camMin.x)
+
+        // Zkontrolujeme, jestli je dlaždice mimo hranice kamery a posuneme ji
+        if (tilePos.x + tileSize.x < camMin.x)
         {
-            tilePos.x += tileSize.x * numTilesX * 2; // Posune dlaždici doprava
+            tilePos.x += tileSize.x * (numTilesX * 2);
         }
-        else if (tilePos.x > camMax.x)
+        else if (tilePos.x - tileSize.x > camMax.x)
         {
-            tilePos.x -= tileSize.x * numTilesX * 2; // Posune dlaždici doleva
+            tilePos.x -= tileSize.x * (numTilesX * 2);
         }
 
-        // Zkontrolujeme, jestli je dlaždice nad nebo pod kamerou
-        if (tilePos.y < camMin.y)
+        if (tilePos.y + tileSize.y < camMin.y)
         {
-            tilePos.y += tileSize.y * numTilesY * 2; // Posune dlaždici nahoru
+            tilePos.y += tileSize.y * (numTilesY * 2);
         }
-        else if (tilePos.y > camMax.y)
+        else if (tilePos.y - tileSize.y > camMax.y)
         {
-            tilePos.y -= tileSize.y * numTilesY * 2; // Posune dlaždici dolů
+            tilePos.y -= tileSize.y * (numTilesY * 2);
         }
 
         tile.transform.position = tilePos;
