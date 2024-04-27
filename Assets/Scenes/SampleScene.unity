@@ -287,7 +287,7 @@ MonoBehaviour:
   rotationSpeed: 800
   bulletPrefab: {fileID: 3539778869041808866, guid: 7a1cd572112dd487e81bbe926ed98f6f, type: 3}
   firePoint: {fileID: 291401414}
-  moveSpeed: 5
+  moveSpeed: 30
   rb: {fileID: 291401412}
 --- !u!1 &519420028
 GameObject:
