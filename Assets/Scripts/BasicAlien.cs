@@ -27,9 +27,9 @@ public class BasicAlien : Alien {
 
     void ShootAtPlayer() {
         Vector3 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f; // Přidáme 90 stupňů
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
-        Instantiate(alienBulletPrefab, transform.position, rotation); // Vytvoříme střelu s rotací směrem k hráči
+        Instantiate(alienBulletPrefab, transform.position, rotation);
     }
 }

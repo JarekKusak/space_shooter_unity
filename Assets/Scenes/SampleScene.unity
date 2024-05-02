@@ -345,12 +345,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b00a58cd113e45dbadbad38820ebc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 800
+  rotationSpeed: 700
   playerBulletPrefab: {fileID: 3539778869041808866, guid: 7a1cd572112dd487e81bbe926ed98f6f, type: 3}
   firePoint: {fileID: 291401414}
-  moveSpeed: 25
+  moveSpeed: 15
   rb: {fileID: 291401412}
-  health: 0
+  health: 100
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
