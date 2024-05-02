@@ -4,12 +4,12 @@ public class PlayerController : MonoBehaviour {
     public static PlayerController Instance { get; private set; }
 
     public float rotationSpeed = 800f;
-    public GameObject playerBulletPrefab; // Prefab střely hráče
+    public GameObject playerBulletPrefab;
     public Transform firePoint;
 
     private float fireRate = 0.1f;
     private float timeSinceLastShot = 0f;
-    
+
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
 
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
         if (Instance == null) {
             Instance = this;
         } else if (Instance != this) {
-            Destroy(gameObject); // Zabráníme více instancím
+            Destroy(gameObject);
         }
     }
 
@@ -68,6 +68,14 @@ public class PlayerController : MonoBehaviour {
 
     void Shoot() {
         Instantiate(playerBulletPrefab, firePoint.position, firePoint.rotation);
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("AlienBullet")) {
+            Debug.Log(("ahoj"));
+            DecrementHealth(other.GetComponent<AlienBullet>().damage);
+            Destroy(other.gameObject);
+        }
     }
 
     public void DecrementHealth(int amount)
