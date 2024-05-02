@@ -1,8 +1,10 @@
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+    public static PlayerController Instance { get; private set; }
+
     public float rotationSpeed = 800f;
-    public GameObject bulletPrefab;
+    public GameObject playerBulletPrefab; // Prefab střely hráče
     public Transform firePoint;
 
     private float fireRate = 0.1f;
@@ -12,7 +14,17 @@ public class PlayerController : MonoBehaviour {
     public Rigidbody2D rb;
 
     private Vector2 moveDirection;
-    
+
+    public int health;
+
+    void Awake() {
+        if (Instance == null) {
+            Instance = this;
+        } else if (Instance != this) {
+            Destroy(gameObject); // Zabráníme více instancím
+        }
+    }
+
     void Update() {
         ProcessInputs();
         HandleRotation();
@@ -39,8 +51,8 @@ public class PlayerController : MonoBehaviour {
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
-        if (direction.magnitude > 0.1f) { // Deadzone
-            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f; // Odečteme 90°, protože v Unity je 0° na východ
+        if (direction.magnitude > 0.1f) {
+            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
             float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.z, targetAngle, rotationSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
@@ -55,7 +67,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Shoot() {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); // Vytvoříme kopii prefabu bullet na pozici a s rotací firePoint
+        Instantiate(playerBulletPrefab, firePoint.position, firePoint.rotation);
+    }
+
+    public void DecrementHealth(int amount)
+    {
+        health -= amount;
     }
 }
-
