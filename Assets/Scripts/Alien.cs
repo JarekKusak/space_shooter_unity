@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Alien : MonoBehaviour {
     public int health; // Zdraví mimozemšťana
     public int damage; // Poškození způsobené mimozemšťanem
-
+    public GameObject alienBulletPrefab; // Prefab střely mimozemšťana
     private bool shieldActive = false; // Zda je štít aktivní
     public GameObject shieldVisual; // Prefab vizuálu štítu (může být například kruh)
     private GameObject activeShield; // Aktivní instance vizuálu štítu
@@ -46,5 +46,13 @@ public abstract class Alien : MonoBehaviour {
             TakeDamage(other.GetComponent<PlayerBullet>().damage); // Nebo použij jiný způsob snižování zdraví
             Destroy(other.gameObject);
         }
+    }
+    
+    public void ShootAtPlayer() {
+        Vector3 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f; // Přidáme 90 stupňů
+        Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+        Instantiate(alienBulletPrefab, transform.position, rotation);
     }
 }

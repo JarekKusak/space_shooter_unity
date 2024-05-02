@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class AdvancedAlien : Alien {
     public float speed = 3f; // Rychlost pohybu mimozemšťana
-    public GameObject alienBulletPrefab; // Prefab střely mimozemšťana
 
     private float fireRate = 0.5f; // Interval střelby
     private float timeSinceLastShot = 0f; // Čas od poslední střelby
 
     private float shieldDuration = 3f; // Doba trvání štítu
-    private float shieldCooldown = 10f; // Interval pro aktivaci štítu
+    private float shieldCooldown = 4f; // Interval pro aktivaci štítu
     private float timeSinceLastShield = 0f; // Čas od poslední aktivace štítu
 
     private bool shieldOn = false; // Stav štítu
@@ -43,13 +42,5 @@ public class AdvancedAlien : Alien {
     void MoveTowardsPlayer() {
         Vector3 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
-    }
-
-    void ShootAtPlayer() {
-        Vector3 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90.0f;
-        Quaternion rotation = Quaternion.Euler(0, 0, angle);
-
-        Instantiate(alienBulletPrefab, transform.position, rotation); // Vytvoříme střelu s rotací směrem k hráči
     }
 }
