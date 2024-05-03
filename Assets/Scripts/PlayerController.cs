@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public static PlayerController Instance { get; private set; }
-
+    
     public float rotationSpeed = 800f;
     public GameObject playerBulletPrefab;
     public Transform firePoint;
@@ -25,10 +25,17 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public UIManager uiManager;
+
     void Update() {
         ProcessInputs();
         HandleRotation();
         HandleShooting();
+
+        // Volání UpdateHealth na UIManager
+        if (uiManager != null) {
+            uiManager.UpdateHealth(health); // předpokládá, že máte definovanou proměnnou 'health'
+        }
     }
 
     void FixedUpdate() {
