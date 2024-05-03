@@ -18,16 +18,22 @@ public class AlienSpawner : MonoBehaviour {
     }
 
     void SpawnAlien() {
-        float angle = Random.Range(0f, 360f); // Náhodný úhel v rozmezí 0 až 360 stupňů
+        float angle = Random.Range(0f, 360f);
         Vector3 spawnPosition = PlayerController.Instance.transform.position + Quaternion.Euler(0, 0, angle) * Vector3.up * spawnDistance;
 
-        // Určení typu Aliena na základě pravděpodobnosti
         float chance = Random.Range(0f, 100f);
         GameObject alienPrefab;
+        Alien.AlienType type;
 
-        if (chance < 70f) // 70 % šance na BasicAliena
+        if (chance < 70f) { // 70 % šance na BasicAliena
             alienPrefab = basicAlienPrefab;
-        else alienPrefab = advancedAlienPrefab; // 30 % šance na AdvancedAliena
-        Instantiate(alienPrefab, spawnPosition, Quaternion.identity); // Vytvoříme Aliens na spawn pozici
+            type = Alien.AlienType.Basic;
+        } else { // 30 % šance na AdvancedAliena
+            alienPrefab = advancedAlienPrefab;
+            type = Alien.AlienType.Advanced;
+        }
+
+        GameObject newAlien = Instantiate(alienPrefab, spawnPosition, Quaternion.identity);
+        newAlien.GetComponent<Alien>().type = type; // Nastavíme typ mimozemšťana
     }
 }

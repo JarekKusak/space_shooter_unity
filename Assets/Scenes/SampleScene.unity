@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d774979198efc4ee7b41e4d351a27cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 0}
+  healthText: {fileID: 1531268668}
   scoreText: {fileID: 396491016}
 --- !u!1 &291401410
 GameObject:
@@ -408,7 +408,7 @@ MonoBehaviour:
   moveSpeed: 15
   rb: {fileID: 291401412}
   health: 100
-  uiManager: {fileID: 0}
+  uiManager: {fileID: 192263656}
 --- !u!1 &396491014
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Aliens killed counter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 505d0b09b92044ccda91205042a4f8eb, type: 2}
   m_sharedMaterial: {fileID: 8268441293477244892, guid: 505d0b09b92044ccda91205042a4f8eb, type: 2}
@@ -774,7 +774,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1531268665}
-  - component: {fileID: 1531268667}
   - component: {fileID: 1531268669}
   - component: {fileID: 1531268668}
   m_Layer: 5
@@ -803,14 +802,6 @@ RectTransform:
   m_AnchoredPosition: {x: 25, y: -17}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
---- !u!222 &1531268667
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1531268664}
-  m_CullTransparentMesh: 1
 --- !u!114 &1531268668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,10 +822,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: healthbar place
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 505d0b09b92044ccda91205042a4f8eb, type: 2}
+  m_sharedMaterial: {fileID: 8268441293477244892, guid: 505d0b09b92044ccda91205042a4f8eb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -923,7 +914,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 8268441293477244892, guid: 505d0b09b92044ccda91205042a4f8eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

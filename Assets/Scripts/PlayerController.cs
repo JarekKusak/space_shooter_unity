@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour {
 
         // Volání UpdateHealth na UIManager
         if (uiManager != null) {
-            uiManager.UpdateHealth(health); // předpokládá, že máte definovanou proměnnou 'health'
+            UIManager.Instance.UpdateHealth(health); // předpokládá, že máte definovanou proměnnou 'health'
         }
     }
 

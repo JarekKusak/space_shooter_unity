@@ -173,6 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 20
   damage: 10
-  shieldVisual: {fileID: 5082095040172872200, guid: db1a13a7147a1456faf24d9a36129b68, type: 3}
-  speed: 3
   alienBulletPrefab: {fileID: 7647929382853415184, guid: 324898beb5e5b4a22b8d1585e54dd786, type: 3}
+  shieldVisual: {fileID: 5082095040172872200, guid: db1a13a7147a1456faf24d9a36129b68, type: 3}
+  uiManager: {fileID: 0}
+  type: 1
+  speed: 3

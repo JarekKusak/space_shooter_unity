@@ -4,14 +4,25 @@ using UnityEngine.UI; // Pro použití UI komponent
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance { get; private set; }
     public TextMeshPro healthText;
     public TextMeshProUGUI scoreText;
 
     private int score = 0;
     private int aliensKilled = 0;
-
+    
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     public void UpdateHealth(int currentHealth) {
-        Debug.Log("NECO SE DEJE");
         healthText.text = "[" + new string('|', currentHealth) + "]";
     }
 
