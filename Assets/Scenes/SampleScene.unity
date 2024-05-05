@@ -407,7 +407,7 @@ MonoBehaviour:
   firePoint: {fileID: 291401414}
   moveSpeed: 15
   rb: {fileID: 291401412}
-  health: 100
+  maxHealth: 100
   uiManager: {fileID: 192263656}
 --- !u!1 &396491014
 GameObject:
@@ -466,7 +466,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Aliens killed counter
+  m_text: 'Aliens killed: 0 counter: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 505d0b09b92044ccda91205042a4f8eb, type: 2}
   m_sharedMaterial: {fileID: 8268441293477244892, guid: 505d0b09b92044ccda91205042a4f8eb, type: 2}
@@ -849,8 +849,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 200
+  m_fontSizeBase: 200
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -256.85968, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0

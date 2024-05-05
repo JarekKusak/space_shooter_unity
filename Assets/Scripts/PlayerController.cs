@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour {
 
     private Vector2 moveDirection;
 
-    public int health;
+    public int maxHealth = 100;
+    private int health = 100;
 
     void Awake() {
         if (Instance == null) {
@@ -34,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 
         // Volání UpdateHealth na UIManager
         if (uiManager != null) {
-            UIManager.Instance.UpdateHealth(health); // předpokládá, že máte definovanou proměnnou 'health'
+            UIManager.Instance.UpdateHealth(health, maxHealth); // předpokládá, že máte definovanou proměnnou 'health'
         }
     }
 
@@ -87,5 +88,7 @@ public class PlayerController : MonoBehaviour {
     public void DecrementHealth(int amount)
     {
         health -= amount;
+        if (health <= 0)
+            Debug.Log("aaaaaaaah");
     }
 }
