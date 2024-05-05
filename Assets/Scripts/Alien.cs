@@ -18,7 +18,6 @@ public abstract class Alien : MonoBehaviour {
     // Tato metoda se volá při inicializaci každého objektu odvozeného od třídy Alien
     void Awake()
     {
-        Debug.Log($"{gameObject.name} is setting its tag to Alien");
         gameObject.tag = "Alien";
     }
 

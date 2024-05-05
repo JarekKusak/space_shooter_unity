@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour {
     public int maxHealth = 100;
     private int health;
     
-    private float currentSpeed = 0f;
     public float acceleration = 10f; // Nastavte vyšší hodnotu pro rychlejší rozjezd
     public float deceleration = 10f; // Záporné zrychlení pro zpomalení
     
@@ -55,30 +54,44 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate() {
         Move();
     }
+    
+    // Fields to store direction and smoothed velocity
+    private Vector2 currentVelocity = Vector2.zero;
+    private Vector2 desiredDirection = Vector2.zero;
 
+    // Process player inputs
     void ProcessInputs() {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+        // Gather key states
+        bool isUp = Input.GetKey(KeyCode.W);
+        bool isDown = Input.GetKey(KeyCode.S);
+        bool isLeft = Input.GetKey(KeyCode.A);
+        bool isRight = Input.GetKey(KeyCode.D);
 
-        moveDirection = new Vector2(moveX, moveY).normalized;
-    }
+        // Determine the desired movement direction
+        desiredDirection = Vector2.zero;
+        if (isUp) desiredDirection.y += 1;
+        if (isDown) desiredDirection.y -= 1;
+        if (isLeft) desiredDirection.x -= 1;
+        if (isRight) desiredDirection.x += 1;
 
-    void Move() {
-        if (moveDirection.magnitude > 0) {
-            // Zrychlení na maximální rychlost pomocí akcelerace
-            currentSpeed = Mathf.Min(currentSpeed + acceleration * Time.fixedDeltaTime, moveSpeed);
-            // Aktualizace aktuálního směru lodi při pohybu
-            rb.velocity = moveDirection * currentSpeed;
-        } else {
-            // Postupné zpomalování při uvolnění pohybu
-            currentSpeed = Mathf.Max(currentSpeed - deceleration * Time.fixedDeltaTime, 0);
-            // Udržování směru pohybu, pokud loď ještě pluje, ale zpomaluje
-            rb.velocity = rb.velocity.normalized * currentSpeed;
+        // Normalize to prevent diagonal boost
+        if (desiredDirection.magnitude > 1) {
+            desiredDirection.Normalize();
         }
     }
 
+    void Move() {
+        // Smoothly transition to the desired direction with acceleration
+        currentVelocity = Vector2.Lerp(currentVelocity, desiredDirection * moveSpeed, acceleration * Time.fixedDeltaTime);
 
+        // Apply gradual deceleration when no input is given
+        if (desiredDirection == Vector2.zero && currentVelocity.magnitude > 0) {
+            currentVelocity = Vector2.Lerp(currentVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
+        }
 
+        // Update rigidbody velocity with current velocity
+        rb.velocity = currentVelocity;
+    }
     void HandleRotation() {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
