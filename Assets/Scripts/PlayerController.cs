@@ -18,10 +18,13 @@ public class PlayerController : MonoBehaviour {
 
     public int maxHealth = 100;
     private int health;
+    
+    private AudioSource blastSound;
 
     private void Start()
     {
         health = maxHealth;
+        blastSound = GetComponent<AudioSource>();
     }
 
     void Awake() {
@@ -82,6 +85,10 @@ public class PlayerController : MonoBehaviour {
 
     void Shoot() {
         Instantiate(playerBulletPrefab, firePoint.position, firePoint.rotation);
+        if (blastSound != null) {
+            Debug.Log("hraju");
+            blastSound.Play();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
