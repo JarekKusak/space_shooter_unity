@@ -90,7 +90,6 @@ public class PlayerController : MonoBehaviour {
             Destroy(other.gameObject);
         }else if (other.CompareTag("Alien"))
         {
-            Debug.Log("auuuu");
             health = 0; // Vynulujeme zdraví hráče
 
             //GameOver();
