@@ -89,6 +89,6 @@ public class PlayerController : MonoBehaviour {
     {
         health -= amount;
         if (health <= 0)
-            Debug.Log("aaaaaaaah");
+            Debug.Log("aaaaaaaah"); // tady bude gameover mechanismus
     }
 }
