@@ -143,7 +143,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -175,6 +175,6 @@ MonoBehaviour:
   damage: 10
   alienBulletPrefab: {fileID: 7647929382853415184, guid: 324898beb5e5b4a22b8d1585e54dd786, type: 3}
   shieldVisual: {fileID: 5082095040172872200, guid: db1a13a7147a1456faf24d9a36129b68, type: 3}
-  uiManager: {fileID: 0}
   type: 1
+  explosionEffectPrefab: {fileID: 6637566113919004154, guid: a0d3b78d573ce4b4fa65d1a6beae6dd3, type: 3}
   speed: 3

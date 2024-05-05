@@ -14,6 +14,13 @@ public abstract class Alien : MonoBehaviour {
         Advanced
         // Další typy mohou být přidány zde
     }
+    
+    // Tato metoda se volá při inicializaci každého objektu odvozeného od třídy Alien
+    void Awake()
+    {
+        Debug.Log($"{gameObject.name} is setting its tag to Alien");
+        gameObject.tag = "Alien";
+    }
 
     public AlienType type; // Přidáme typ mimozemšťana
     public void TakeDamage(int amount) {
@@ -24,8 +31,16 @@ public abstract class Alien : MonoBehaviour {
             }
         }
     }
+    
+    public GameObject explosionEffectPrefab;
 
     public void Die() {
+        
+        if (explosionEffectPrefab != null)
+        {
+            // Vytvořte efekt na pozici mimozemšťana
+            Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+        }
         UIManager.Instance.AlienKilled(type == AlienType.Advanced);
         Destroy(gameObject); // Zničíme mimozemšťana, pokud jeho zdraví klesne na nulu nebo pod ní
     }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -16,7 +17,12 @@ public class PlayerController : MonoBehaviour {
     private Vector2 moveDirection;
 
     public int maxHealth = 100;
-    private int health = 100;
+    private int health;
+
+    private void Start()
+    {
+        health = maxHealth;
+    }
 
     void Awake() {
         if (Instance == null) {
@@ -82,6 +88,12 @@ public class PlayerController : MonoBehaviour {
         if (other.CompareTag("AlienBullet")) {
             DecrementHealth(other.GetComponent<AlienBullet>().damage);
             Destroy(other.gameObject);
+        }else if (other.CompareTag("Alien"))
+        {
+            Debug.Log("auuuu");
+            health = 0; // Vynulujeme zdraví hráče
+
+            //GameOver();
         }
     }
 
@@ -89,6 +101,6 @@ public class PlayerController : MonoBehaviour {
     {
         health -= amount;
         if (health <= 0)
-            Debug.Log("aaaaaaaah"); // tady bude gameover mechanismus
+            Debug.Log("aaaaaaaah"); // GameOver();
     }
 }

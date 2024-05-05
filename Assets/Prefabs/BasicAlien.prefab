@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 2961414061416226230}
   - component: {fileID: 3434487175305996369}
   - component: {fileID: 4914808996967329699}
-  - component: {fileID: -4609113817197349154}
+  - component: {fileID: 7275778028768153780}
   m_Layer: 0
   m_Name: BasicAlien
-  m_TagString: Untagged
+  m_TagString: Alien
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,8 +101,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   damage: 2
-  speed: 1
   alienBulletPrefab: {fileID: 7647929382853415184, guid: 324898beb5e5b4a22b8d1585e54dd786, type: 3}
+  shieldVisual: {fileID: 0}
+  type: 0
+  explosionEffectPrefab: {fileID: 6637566113919004154, guid: a0d3b78d573ce4b4fa65d1a6beae6dd3, type: 3}
+  speed: 1
 --- !u!50 &4914808996967329699
 Rigidbody2D:
   serializedVersion: 4
@@ -130,7 +133,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &-4609113817197349154
+--- !u!61 &7275778028768153780
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,7 +162,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
