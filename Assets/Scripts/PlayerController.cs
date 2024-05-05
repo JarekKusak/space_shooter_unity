@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour {
     public int maxHealth = 100;
     private int health;
     
+    private float currentSpeed = 0f;
+    public float acceleration = 10f; // Nastavte vyšší hodnotu pro rychlejší rozjezd
+    public float deceleration = 10f; // Záporné zrychlení pro zpomalení
+    
     private AudioSource blastSound;
 
     private void Start()
@@ -60,8 +64,20 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Move() {
-        rb.velocity = moveDirection * moveSpeed;
+        if (moveDirection.magnitude > 0) {
+            // Zrychlení na maximální rychlost pomocí akcelerace
+            currentSpeed = Mathf.Min(currentSpeed + acceleration * Time.fixedDeltaTime, moveSpeed);
+            // Aktualizace aktuálního směru lodi při pohybu
+            rb.velocity = moveDirection * currentSpeed;
+        } else {
+            // Postupné zpomalování při uvolnění pohybu
+            currentSpeed = Mathf.Max(currentSpeed - deceleration * Time.fixedDeltaTime, 0);
+            // Udržování směru pohybu, pokud loď ještě pluje, ale zpomaluje
+            rb.velocity = rb.velocity.normalized * currentSpeed;
+        }
     }
+
+
 
     void HandleRotation() {
         float horizontalInput = Input.GetAxis("Horizontal");
