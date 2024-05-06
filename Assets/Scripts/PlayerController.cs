@@ -124,7 +124,8 @@ public class PlayerController : MonoBehaviour {
         if (other.CompareTag("AlienBullet")) {
             DecrementHealth(other.GetComponent<AlienBullet>().damage);
             Destroy(other.gameObject);
-        }else if (other.CompareTag("Alien"))
+        }
+        else if (other.CompareTag("Alien"))
         {
             health = 0; // Vynulujeme zdraví hráče
 
@@ -141,7 +142,6 @@ public class PlayerController : MonoBehaviour {
     
     public void IncrementHealth(int amount) {
         health = Mathf.Min(health + amount, maxHealth); // Přidání životů s maximálním omezením
-        Debug.Log($"Zdraví přidáno: {amount}, Aktuální zdraví: {health}");
     }
 
 }
