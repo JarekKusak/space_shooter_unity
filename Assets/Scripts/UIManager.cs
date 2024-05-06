@@ -10,6 +10,16 @@ public class UIManager : MonoBehaviour
 
     private int score = 0;
     private int aliensKilled = 0;
+
+    public string GetAliensKilled()
+    {
+        return aliensKilled.ToString();
+    }
+    
+    public string GetScore()
+    {
+        return score.ToString();
+    }
     
     void Awake()
     {

@@ -30,7 +30,9 @@ public class PlayerController : MonoBehaviour {
         blastSound = GetComponent<AudioSource>();
     }
 
+    private GameOverScreen gameOverScreen;
     void Awake() {
+        gameOverScreen = FindObjectOfType<GameOverScreen>();
         if (Instance == null) {
             Instance = this;
         } else if (Instance != this) {
@@ -128,16 +130,17 @@ public class PlayerController : MonoBehaviour {
         else if (other.CompareTag("Alien"))
         {
             health = 0; // Vynulujeme zdraví hráče
-
+            gameOverScreen.ShowGameOverScreen();
             //GameOver();
         }
     }
 
+    
     public void DecrementHealth(int amount)
     {
         health -= amount;
         if (health <= 0)
-            Debug.Log("aaaaaaaah"); // GameOver();
+            gameOverScreen.ShowGameOverScreen();
     }
     
     public void IncrementHealth(int amount) {

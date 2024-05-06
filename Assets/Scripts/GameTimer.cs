@@ -5,6 +5,10 @@ public class GameTimer : MonoBehaviour {
     public TextMeshProUGUI timerText; // Odkaz na UI element pro zobrazení času
     private float elapsedTime; // Uchovává čas od spuštění hry
 
+    public string GetElapsedTime()
+    {
+        return elapsedTime.ToString();
+    }
     void Update() {
         // Zvýšíme uběhnutý čas o časový interval mezi jednotlivými snímky
         elapsedTime += Time.deltaTime;
