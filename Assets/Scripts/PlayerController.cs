@@ -138,4 +138,10 @@ public class PlayerController : MonoBehaviour {
         if (health <= 0)
             Debug.Log("aaaaaaaah"); // GameOver();
     }
+    
+    public void IncrementHealth(int amount) {
+        health = Mathf.Min(health + amount, maxHealth); // Přidání životů s maximálním omezením
+        Debug.Log($"Zdraví přidáno: {amount}, Aktuální zdraví: {health}");
+    }
+
 }
