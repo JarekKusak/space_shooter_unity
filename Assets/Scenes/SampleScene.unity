@@ -1294,8 +1294,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthKitPrefab: {fileID: 5384020470850165907, guid: 620cb513eb28e40a9915920121f97187, type: 3}
   spawnDistance: 10
-  spawnInterval: 8
-  spawnChance: 0.2
+  spawnInterval: 4
+  spawnChance: 0.4
 --- !u!1 &800243241
 GameObject:
   m_ObjectHideFlags: 0
