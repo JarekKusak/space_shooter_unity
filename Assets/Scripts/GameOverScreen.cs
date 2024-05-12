@@ -24,7 +24,7 @@ public class GameOverScreen : MonoBehaviour {
 
         // Připravíme data pro zobrazení
         gameOverText.text = "GAME OVER";
-        timeText.text = "Time: " + gameTimer.GetElapsedTime();
+        timeText.text = "Time: " + uiManager.GetElapsedTime();
         aliensKilledText.text = "Aliens killed: " + uiManager.GetAliensKilled();
         scoreText.text = "Score: " + uiManager.GetScore();
 
