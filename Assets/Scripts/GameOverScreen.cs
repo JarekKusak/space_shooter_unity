@@ -10,12 +10,10 @@ public class GameOverScreen : MonoBehaviour {
     public TextMeshProUGUI scoreText; // Text pro zobrazení skóre
 
     private UIManager uiManager;
-    private GameTimer gameTimer;
 
     void Start() {
         gameOverPanel.SetActive(false); // Panel koncové obrazovky na začátku skryjeme
         uiManager = FindObjectOfType<UIManager>();
-        gameTimer = FindObjectOfType<GameTimer>();
     }
 
     public void ShowGameOverScreen() {
