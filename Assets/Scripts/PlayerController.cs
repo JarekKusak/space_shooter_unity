@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour {
     private int currentAmmo;
     public float reloadTime = 2f;
     private float reloadTimer;
+    
+    public GameObject pauseMenu; // Přidejte toto do vašeho PlayerController skriptu
+
 
     private void Start()
     {
@@ -35,6 +38,18 @@ public class PlayerController : MonoBehaviour {
         blastSound = GetComponent<AudioSource>();
         currentAmmo = maxAmmo; // inicializace střel
         UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
+    }
+    
+    void CheckPauseMenu() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (!pauseMenu.activeInHierarchy) {
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0; // Zastaví čas ve hře
+            } else {
+                pauseMenu.SetActive(false);
+                Time.timeScale = 1; // Obnoví běh času ve hře
+            }
+        }
     }
 
     private GameOverScreen gameOverScreen;
@@ -53,7 +68,7 @@ public class PlayerController : MonoBehaviour {
         ProcessInputs();
         HandleRotation();
         HandleShooting();
-
+        CheckPauseMenu();
         HandleReload();
         // Volání UpdateHealth na UIManager
         if (uiManager != null) {
