@@ -7,7 +7,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
     public TextMeshPro healthText;
     public TextMeshProUGUI scoreText;
-
+    public TextMeshProUGUI ammoText; // UI element pro zobrazení střel
+    
     private int score = 0;
     private int aliensKilled = 0;
 
@@ -37,6 +38,10 @@ public class UIManager : MonoBehaviour
     public string GetScore()
     {
         return score.ToString();
+    }
+    
+    public void UpdateAmmo(int currentAmmo, int maxAmmo) {
+        ammoText.text = "[" + new string('|', currentAmmo).PadRight(maxAmmo, ' ') + "]";
     }
     
     void Awake()

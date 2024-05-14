@@ -23,11 +23,18 @@ public class PlayerController : MonoBehaviour {
     public float deceleration = 10f; // Záporné zrychlení pro zpomalení
     
     private AudioSource blastSound;
+    
+    public int maxAmmo = 10;
+    private int currentAmmo;
+    public float reloadTime = 2f;
+    private float reloadTimer;
 
     private void Start()
     {
         health = maxHealth;
         blastSound = GetComponent<AudioSource>();
+        currentAmmo = maxAmmo; // inicializace střel
+        UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
     }
 
     private GameOverScreen gameOverScreen;
@@ -47,10 +54,14 @@ public class PlayerController : MonoBehaviour {
         HandleRotation();
         HandleShooting();
 
+        HandleReload();
         // Volání UpdateHealth na UIManager
         if (uiManager != null) {
             UIManager.Instance.UpdateHealth(health, maxHealth); // předpokládá, že máte definovanou proměnnou 'health'
+            UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
         }
+        
+        
     }
 
     void FixedUpdate() {
@@ -108,7 +119,7 @@ public class PlayerController : MonoBehaviour {
 
     void HandleShooting() {
         timeSinceLastShot += Time.deltaTime;
-        if (Input.GetKey(KeyCode.Space) && timeSinceLastShot >= fireRate) {
+        if (Input.GetKey(KeyCode.Space) && timeSinceLastShot >= fireRate && currentAmmo > 0) {
             Shoot();
             timeSinceLastShot = 0f;
         }
@@ -116,9 +127,20 @@ public class PlayerController : MonoBehaviour {
 
     void Shoot() {
         Instantiate(playerBulletPrefab, firePoint.position, firePoint.rotation);
+        currentAmmo--;
         if (blastSound != null) {
             Debug.Log("hraju");
             blastSound.Play();
+        }
+    }
+    
+    void HandleReload() {
+        if (currentAmmo < maxAmmo) {
+            reloadTimer += Time.deltaTime;
+            if (reloadTimer >= reloadTime) {
+                currentAmmo++;
+                reloadTimer = 0;
+            }
         }
     }
 
