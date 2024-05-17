@@ -8,7 +8,7 @@ public abstract class Alien : MonoBehaviour {
     private bool shieldActive = false; // Zda je štít aktivní
     public GameObject shieldVisual; // Prefab vizuálu štítu (může být například kruh)
     private GameObject activeShield; // Aktivní instance vizuálu štítu
-
+    private bool isVulnerable = true; // Přidáno pro kontrolu zranitelnosti
     private SpriteRenderer spriteRenderer;
     //public UIManager uiManager;
     public abstract void UpdateBehavior(); // Abstraktní metoda pro chování mimozemšťana
@@ -46,14 +46,13 @@ public abstract class Alien : MonoBehaviour {
     public GameObject explosionEffectPrefab;
 
     public void Die() {
-        
-        if (explosionEffectPrefab != null)
-        {
-            // Vytvořte efekt na pozici mimozemšťana
-            Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+        if (isVulnerable) {
+            if (explosionEffectPrefab != null) {
+                Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+            }
+            UIManager.Instance.AlienKilled(type == AlienType.Advanced);
+            Destroy(gameObject);
         }
-        UIManager.Instance.AlienKilled(type == AlienType.Advanced);
-        Destroy(gameObject); // Zničíme mimozemšťana, pokud jeho zdraví klesne na nulu nebo pod ní
     }
 
     public void ActivateShield(float duration) {
@@ -66,22 +65,32 @@ public abstract class Alien : MonoBehaviour {
     }
 
     public void DeactivateShield() {
-        shieldActive = false; // Deaktivujeme štít
+        shieldActive = false;
         if (activeShield != null) {
-            Destroy(activeShield); // Zničíme vizuální zobrazení štítu
+            Destroy(activeShield);
             activeShield = null;
         }
+        StartCoroutine(MakeVulnerableAfterDelay(1.0f)); // Zpoždění před obnovením zranitelnosti
+        StartCoroutine(FlashCoroutine(Color.yellow));
+    }
+
+    IEnumerator MakeVulnerableAfterDelay(float delay) {
+        yield return new WaitForSeconds(delay);
+        isVulnerable = true;
     }
     
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Player") && PlayerController.Instance.IsShieldActive())
-        {
-            Die();
-        }
-        else if (other.CompareTag("PlayerBullet"))
-        {
-            TakeDamage(other.GetComponent<PlayerBullet>().damage); // Nebo použij jiný způsob snižování zdraví
-            Destroy(other.gameObject);
+        if (other.CompareTag("Player") && PlayerController.Instance.IsShieldActive()) {
+            if (shieldActive) {
+                DeactivateShield();
+            } else if (isVulnerable) {
+                Die();
+            }
+        } else if (other.CompareTag("PlayerBullet")) {
+            if (isVulnerable) {
+                TakeDamage(other.GetComponent<PlayerBullet>().damage);
+                Destroy(other.gameObject);
+            }
         }
     }
     

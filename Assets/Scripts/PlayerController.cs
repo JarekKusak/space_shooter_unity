@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour {
     
     public int maxAmmo = 10;
     private int currentAmmo;
-    public float reloadTime = 2f;
+    private float reloadTime = 1f;
     private float reloadTimer;
     
     public GameObject pauseMenu; // Přidejte toto do vašeho PlayerController skriptu

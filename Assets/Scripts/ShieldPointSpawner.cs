@@ -15,7 +15,7 @@ public class ShieldPointSpawner : MonoBehaviour
         if (timer >= spawnRate)
         {
             Vector3 spawnPosition = PlayerController.Instance.transform.position + Random.insideUnitSphere * spawnDistance;
-            spawnPosition.z = 0; // ujistěte se, že zůstane ve 2D rovině
+            spawnPosition.z = -1;
             Instantiate(shieldPointPrefab, spawnPosition, Quaternion.identity);
             timer = 0f;
         }
