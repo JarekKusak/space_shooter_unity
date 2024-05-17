@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
@@ -31,11 +32,13 @@ public class PlayerController : MonoBehaviour {
     
     public GameObject pauseMenu; // Přidejte toto do vašeho PlayerController skriptu
 
-
+    private SpriteRenderer spriteRenderer;
+    
     private void Start()
     {
         health = maxHealth;
         blastSound = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         currentAmmo = maxAmmo; // inicializace střel
         UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
     }
@@ -158,9 +161,17 @@ public class PlayerController : MonoBehaviour {
             }
         }
     }
+    
+    private IEnumerator FlashCoroutine()
+    {
+        spriteRenderer.color = Color.red;  // Změna barvy na červenou
+        yield return new WaitForSeconds(0.1f);  // Krátké zpoždění
+        spriteRenderer.color = Color.white;  // Vrátit zpět na původní barvu
+    }
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("AlienBullet")) {
+            StartCoroutine(FlashCoroutine());
             DecrementHealth(other.GetComponent<AlienBullet>().damage);
             Destroy(other.gameObject);
         }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class Alien : MonoBehaviour {
@@ -7,6 +8,8 @@ public abstract class Alien : MonoBehaviour {
     private bool shieldActive = false; // Zda je štít aktivní
     public GameObject shieldVisual; // Prefab vizuálu štítu (může být například kruh)
     private GameObject activeShield; // Aktivní instance vizuálu štítu
+
+    private SpriteRenderer spriteRenderer;
     //public UIManager uiManager;
     public abstract void UpdateBehavior(); // Abstraktní metoda pro chování mimozemšťana
     public enum AlienType {
@@ -19,11 +22,20 @@ public abstract class Alien : MonoBehaviour {
     void Awake()
     {
         gameObject.tag = "Alien";
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    
+    private IEnumerator FlashCoroutine()
+    {
+        spriteRenderer.color = Color.red;  // Změna barvy na červenou
+        yield return new WaitForSeconds(0.1f);  // Krátké zpoždění
+        spriteRenderer.color = Color.white;  // Vrátit zpět na původní barvu
     }
 
     public AlienType type; // Přidáme typ mimozemšťana
     public void TakeDamage(int amount) {
         if (!shieldActive) { // Pokud není štít aktivní
+            StartCoroutine(FlashCoroutine());
             health -= amount; // Odečteme poškození od zdraví
             if (health <= 0) {
                 Die();

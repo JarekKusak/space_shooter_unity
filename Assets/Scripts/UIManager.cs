@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
     }
     
     public void UpdateAmmo(int currentAmmo, int maxAmmo) {
-        ammoText.text = "[" + new string('|', currentAmmo).PadRight(maxAmmo, ' ') + "]";
+        ammoText.text = "[" + new string('+', currentAmmo).PadRight(maxAmmo, ' ') + "]";
     }
     
     void Awake()
