@@ -1611,8 +1611,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldPointPrefab: {fileID: 1008990701198266323, guid: d1ab460df39fb43df89ed7fa7a909457, type: 3}
-  spawnRate: 3
-  spawnDistance: 5
+  spawnRate: 6
+  spawnDistance: 6
 --- !u!1 &1124931866
 GameObject:
   m_ObjectHideFlags: 0

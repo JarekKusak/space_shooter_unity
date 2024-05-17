@@ -169,14 +169,18 @@ public class PlayerController : MonoBehaviour {
     {
         spriteRenderer.color = color;  // Změna barvy na červenou
         yield return new WaitForSeconds(0.1f);  // Krátké zpoždění
-        spriteRenderer.color = Color.white;  // Vrátit zpět na původní barvu
+        if (!IsShieldActive())
+            spriteRenderer.color = Color.white;  // Vrátit zpět na původní barvu
     }
 
     void OnTriggerEnter2D(Collider2D other) {
         
         if (other.CompareTag("AlienBullet")) {
-            StartCoroutine(FlashCoroutine(Color.red));
-            DecrementHealth(other.GetComponent<AlienBullet>().damage);
+            if (!IsShieldActive())
+            {
+                StartCoroutine(FlashCoroutine(Color.red));
+                DecrementHealth(other.GetComponent<AlienBullet>().damage);
+            }
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("Alien"))
@@ -203,6 +207,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (activeShield == null)
         {
+            spriteRenderer.color = Color.green;
             activeShield = Instantiate(shieldVisual, transform.position, Quaternion.identity); // Vytvoří štít na pozici hráče bez dědičnosti transformace
             activeShield.transform.parent = transform;  // Můžete poté přidat hráče jako rodiče, pokud je to stále potřeba
             StartCoroutine(ShieldDuration(duration));
@@ -213,6 +218,7 @@ public class PlayerController : MonoBehaviour {
     {
         yield return new WaitForSeconds(duration);
         Destroy(activeShield);
+        spriteRenderer.color = Color.white;
         activeShield = null;
     }
     

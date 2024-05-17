@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2900476108523865159}
   - component: {fileID: 4557359030074556185}
   m_Layer: 0
-  m_Name: ShieldVisual 1
+  m_Name: PlayerShieldVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
