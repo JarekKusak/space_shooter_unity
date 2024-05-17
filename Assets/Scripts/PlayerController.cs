@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour {
         if (uiManager != null) {
             UIManager.Instance.UpdateHealth(health, maxHealth); // předpokládá, že máte definovanou proměnnou 'health'
             UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
+            UIManager.Instance.UpdateShieldPoints(currentPoints);
         }
     }
 

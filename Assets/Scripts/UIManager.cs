@@ -8,9 +8,11 @@ public class UIManager : MonoBehaviour
     public TextMeshPro healthText;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI ammoText; // UI element pro zobrazení střel
+    public TextMeshProUGUI shieldPointsText; // UI element pro zobrazení štítových bodů
     
     private int score = 0;
     private int aliensKilled = 0;
+    private int shieldPoints = 0; // Počet štítových bodů
 
     public TextMeshProUGUI timerText; // Odkaz na UI element pro zobrazení času
     private float elapsedTime; // Uchovává čas od spuštění hry
@@ -79,6 +81,11 @@ public class UIManager : MonoBehaviour
         healthBar = healthBar.PadRight(totalBlocks + 1, ' ');
         healthBar += "]";
         healthText.text = healthBar;
+    }
+    
+    public void UpdateShieldPoints(int points) {
+        shieldPoints = points;
+        shieldPointsText.text = "[" + new string('0', points).PadRight(3, ' ') + "]";
     }
 
     public void AlienKilled(bool isAdvanced) {
