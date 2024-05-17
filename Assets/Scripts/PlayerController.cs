@@ -34,6 +34,11 @@ public class PlayerController : MonoBehaviour {
 
     private SpriteRenderer spriteRenderer;
     
+    public int requiredPoints = 3;
+    private int currentPoints = 0;
+    public GameObject shieldVisual; // GameObject pro vizuální efekt štítu
+    private GameObject activeShield;
+    
     private void Start()
     {
         health = maxHealth;
@@ -78,8 +83,6 @@ public class PlayerController : MonoBehaviour {
             UIManager.Instance.UpdateHealth(health, maxHealth); // předpokládá, že máte definovanou proměnnou 'health'
             UIManager.Instance.UpdateAmmo(currentAmmo, maxAmmo);
         }
-        
-        
     }
 
     void FixedUpdate() {
@@ -162,27 +165,61 @@ public class PlayerController : MonoBehaviour {
         }
     }
     
-    private IEnumerator FlashCoroutine()
+    private IEnumerator FlashCoroutine(Color color)
     {
-        spriteRenderer.color = Color.red;  // Změna barvy na červenou
+        spriteRenderer.color = color;  // Změna barvy na červenou
         yield return new WaitForSeconds(0.1f);  // Krátké zpoždění
         spriteRenderer.color = Color.white;  // Vrátit zpět na původní barvu
     }
 
     void OnTriggerEnter2D(Collider2D other) {
+        
         if (other.CompareTag("AlienBullet")) {
-            StartCoroutine(FlashCoroutine());
+            StartCoroutine(FlashCoroutine(Color.red));
             DecrementHealth(other.GetComponent<AlienBullet>().damage);
             Destroy(other.gameObject);
         }
         else if (other.CompareTag("Alien"))
         {
-            health = 0; // Vynulujeme zdraví hráče
-            gameOverScreen.ShowGameOverScreen();
-            //GameOver();
+            if (!IsShieldActive())
+            {
+                StartCoroutine(FlashCoroutine(Color.red));
+                health = 0; // Vynulujeme zdraví hráče
+                gameOverScreen.ShowGameOverScreen();
+            }
+        } else if (other.CompareTag("ShieldPoint"))
+        {
+            Destroy(other.gameObject); // Zničení sběrného bodu
+            currentPoints++;
+            if (currentPoints >= requiredPoints)
+            {
+                ActivateShield(3); // aktivuje štít na 3 sekundy
+                currentPoints = 0; // reset bodů
+            }
+        }
+    }
+    
+    void ActivateShield(float duration)
+    {
+        if (activeShield == null)
+        {
+            activeShield = Instantiate(shieldVisual, transform.position, Quaternion.identity); // Vytvoří štít na pozici hráče bez dědičnosti transformace
+            activeShield.transform.parent = transform;  // Můžete poté přidat hráče jako rodiče, pokud je to stále potřeba
+            StartCoroutine(ShieldDuration(duration));
         }
     }
 
+    IEnumerator ShieldDuration(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        Destroy(activeShield);
+        activeShield = null;
+    }
+    
+    public bool IsShieldActive()
+    {
+        return activeShield != null;
+    }
     
     public void DecrementHealth(int amount)
     {
@@ -192,7 +229,7 @@ public class PlayerController : MonoBehaviour {
     }
     
     public void IncrementHealth(int amount) {
+        StartCoroutine(FlashCoroutine(Color.green));
         health = Mathf.Min(health + amount, maxHealth); // Přidání životů s maximálním omezením
     }
-
 }

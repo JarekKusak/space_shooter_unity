@@ -25,9 +25,9 @@ public abstract class Alien : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
     
-    private IEnumerator FlashCoroutine()
+    private IEnumerator FlashCoroutine(Color color)
     {
-        spriteRenderer.color = Color.red;  // Změna barvy na červenou
+        spriteRenderer.color = color;  // Změna barvy na červenou
         yield return new WaitForSeconds(0.1f);  // Krátké zpoždění
         spriteRenderer.color = Color.white;  // Vrátit zpět na původní barvu
     }
@@ -35,7 +35,7 @@ public abstract class Alien : MonoBehaviour {
     public AlienType type; // Přidáme typ mimozemšťana
     public void TakeDamage(int amount) {
         if (!shieldActive) { // Pokud není štít aktivní
-            StartCoroutine(FlashCoroutine());
+            StartCoroutine(FlashCoroutine(Color.red));
             health -= amount; // Odečteme poškození od zdraví
             if (health <= 0) {
                 Die();
@@ -74,7 +74,11 @@ public abstract class Alien : MonoBehaviour {
     }
     
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("PlayerBullet"))
+        if (other.CompareTag("Player") && PlayerController.Instance.IsShieldActive())
+        {
+            Die();
+        }
+        else if (other.CompareTag("PlayerBullet"))
         {
             TakeDamage(other.GetComponent<PlayerBullet>().damage); // Nebo použij jiný způsob snižování zdraví
             Destroy(other.gameObject);

@@ -715,6 +715,8 @@ MonoBehaviour:
   maxAmmo: 10
   reloadTime: 0.5
   pauseMenu: {fileID: 1388274973}
+  requiredPoints: 3
+  shieldVisual: {fileID: 5082095040172872200, guid: 85e4ff57923174b1193b86308fe975a4, type: 3}
   uiManager: {fileID: 192263656}
 --- !u!82 &291401416
 AudioSource:
@@ -1564,6 +1566,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1053755855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1053755857}
+  - component: {fileID: 1053755858}
+  m_Layer: 0
+  m_Name: ShieldPointSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1053755857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053755855}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.43, y: -0.92986405, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: -1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1053755858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053755855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69cd684b2c332482b81dee19bd15a284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldPointPrefab: {fileID: 1008990701198266323, guid: d1ab460df39fb43df89ed7fa7a909457, type: 3}
+  spawnRate: 3
+  spawnDistance: 5
 --- !u!1 &1124931866
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,3 +2721,4 @@ SceneRoots:
   - {fileID: 996279292}
   - {fileID: 92933844}
   - {fileID: 1388274978}
+  - {fileID: 1053755857}
